@@ -1,0 +1,14 @@
+#--------------------------
+# [Default] config.yml
+# -------------------------
+# Config for the Default plugin.
+
+prefix: '&k|&7[&dDefault&7]&k|&r '
+debug: false
+mysql:
+ tablename: defaulttable
+ hostname: localhost
+ port: 3306
+ database: minecraft
+ username: bukkit
+ password: ""
