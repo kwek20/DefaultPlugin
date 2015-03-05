@@ -112,7 +112,7 @@ public enum Localizer {
 
 	public static Localizer getLocale(Player inPlayer) {
 		try {
-			Object nms = ReflectionUtils.castToNMS(inPlayer);
+			Object nms = ReflectionUtils.getHandle(inPlayer);
 			if (field == null) {
 				field = nms.getClass().getDeclaredField("locale");
 				field.setAccessible(true);

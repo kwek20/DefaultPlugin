@@ -215,7 +215,7 @@ public abstract class BasicPlugin extends JavaPlugin{
 	
 	/**
 	 * Checks for preconditions on a listener
-	 * @param listener
+	 * @param listenerz
 	 * @throws CheckException 
 	 */
 	private void CheckPreconditions(DefaultListener listener) throws CheckException {
