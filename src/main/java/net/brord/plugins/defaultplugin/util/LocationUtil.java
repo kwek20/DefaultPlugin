@@ -19,7 +19,7 @@ public class LocationUtil {
 	 * @param v1
 	 * @param v2
 	 */
-	public static void smallLarge(Vector v1, Vector v2){
+	public static Vector[] smallLarge(Vector v1, Vector v2){
 		Vector c1 = v1.clone(), c2 = v2.clone();
 		
 		if (v1.getX() < v2.getX()){v1.setX(c1.getX());v2.setX(c2.getX());
@@ -33,5 +33,7 @@ public class LocationUtil {
 		if (v1.getZ() < v2.getZ()){v1.setZ(c1.getZ());v2.setZ(c2.getZ());
 		} else {v2.setZ(c1.getZ());v1.setZ(c2.getZ());
 		}
+		
+		return new Vector[]{v1, v2};
 	}
 }

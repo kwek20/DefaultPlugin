@@ -11,8 +11,6 @@ import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
-import net.brord.plugins.defaultplugin.pod.BlockInfo;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -93,37 +91,6 @@ public class Util {
 	 */
 	public static String toLocationString(Location l){
 		return l.getWorld().getName() + ":" + l.getX() + ":" + l.getY() + ":" + l.getZ() + ":" + l.getYaw() + ":" + l.getPitch();
-	}
-	
-	/**
-	 * 
-	 * @param s
-	 * @return
-	 */
-	public static BlockInfo toBlockInfo(String s){
-		String[] splits = s.split(":");
-		if (splits.length < 5) return null;
-		int[] ints = new int[3];
-		
-		try {
-			for (int i=0; i<3; i++){
-				ints[i] = Integer.parseInt(splits[i]);
-			}
-		} catch (NumberFormatException e){
-			return null;
-		}
-		
-		Material m = Material.getMaterial(splits[3]);
-		return new BlockInfo(new Vector(ints[0], ints[1], ints[2]), m, Byte.parseByte(splits[4]));
-	}
-	
-	/**
-	 * Returns a formatted string for the blockloc
-	 * @param i The BlockInfo
-	 * @return a string with syntax x:y:z:material:byte
-	 */
-	public static String toBlockString(BlockInfo i){
-		return i.getVector().getBlockX() + ":" +i.getVector().getBlockY() + ":" +i.getVector().getBlockZ() + ":" +i.getMaterial() + ":" + i.getDurability();
 	}
 	
 	/**
@@ -249,5 +216,13 @@ public class Util {
 				| InvocationTargetException e) {
 			return -1;
 		}
+	}
+
+	/**
+	 * @param vector
+	 * @return
+	 */
+	public static String readableVector(Vector vector) {
+		return vector.getBlockX() + ", " + vector.getBlockY() + ", " + vector.getBlockZ();
 	}
 }

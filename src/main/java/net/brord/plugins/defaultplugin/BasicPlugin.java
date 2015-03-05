@@ -31,6 +31,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -243,7 +244,7 @@ public abstract class BasicPlugin extends JavaPlugin{
 	 * @return
 	 */
 	public String getMessage(String msg) {
-		if (!getConfigManager().get("messages").contains(msg)) return "";
+		if (!getConfigManager().get("messages").contains(msg)) return "Message not found: \"" + msg + "\"";
 		return ChatColor.translateAlternateColorCodes('&', getConfigManager().get("messages").getString(msg));
 	}
 
@@ -524,5 +525,35 @@ public abstract class BasicPlugin extends JavaPlugin{
 	 */
 	public boolean isDebug() {
 		return debug;
+	}
+	
+	/**
+	 *###############################################
+	 ***********************OTHERS******************
+	 *###############################################
+	 */
+	
+	public boolean loadCustomEnchantment(Enchantment ench){
+		/*further down in your main class, in the onEnable to be exactly:*/
+		try{
+			try {
+				/* boolean that goes to false whne bukkit loaded it's own enchantlents */
+				java.lang.reflect.Field f = Enchantment.class.getDeclaredField("acceptingNew");
+				f.setAccessible(true);
+				f.set(null, true); //setting to true
+			} catch (Exception e) {
+				return false;
+			}
+			
+			try {
+				/* registring our enchantment to the bukkit default enchantments.*/
+				Enchantment.registerEnchantment(ench);
+			} catch (IllegalArgumentException e){
+				return false;
+			}
+		}catch(Exception e){
+			return false;
+		}
+		return true;
 	}
 }

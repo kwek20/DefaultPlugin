@@ -52,6 +52,22 @@ public class InventoryUtil {
 	}
 	
 	/**
+	 * @param item
+	 * @return
+	 */
+	public static boolean isSword(ItemStack item) {
+		return isSword(item.getType()); 
+	}
+	
+	/**
+	 * @param item
+	 * @return
+	 */
+	public static boolean isSword(Material item) {
+		return item.name().endsWith("SWORD"); 
+	}
+	
+	/**
 	 * //TODO
 	 * @param item
 	 * @return [name][amount=x, damage=y, enchantments={}]

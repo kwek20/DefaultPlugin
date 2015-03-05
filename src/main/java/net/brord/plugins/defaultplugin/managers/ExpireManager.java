@@ -1,6 +1,7 @@
 package net.brord.plugins.defaultplugin.managers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -62,6 +63,34 @@ public abstract class ExpireManager<T extends Managable> extends Manager<T> {
 	}
 	
 	/**
+	 * @param the object
+	 * @return 
+	 */
+	public long getTimeLeft(T t) {
+		if (!data.containsKey(t)) return 0;
+		return (data.get(t) + expireTime) - System.currentTimeMillis();
+	}
+	
+	/**
+	  * @see net.brord.plugins.cenchant.managers.Manager#getAll()
+	  */
+	@Override
+	public List<T> getAll() {
+		return new java.util.LinkedList<T>(data.keySet());
+	}
+	
+	/**
+	  * @see net.brord.plugins.cenchant.managers.Manager#exists(java.lang.String)
+	  */
+	@Override
+	public boolean exists(String name) {
+		for (T t : getAll()){
+			if (t.name().equalsIgnoreCase(name)) return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * @return
 	 */
 	private Runnable getTask() {
@@ -69,7 +98,7 @@ public abstract class ExpireManager<T extends Managable> extends Manager<T> {
 			
 			@Override
 			public void run() {
-				Set<T> objects = data.keySet();
+				Set<T> objects = new java.util.HashSet<T>(data.keySet());
 				for (T o : objects){
 					if (data.get(o) + expireTime <= System.currentTimeMillis()){
 						onExpire(o);
